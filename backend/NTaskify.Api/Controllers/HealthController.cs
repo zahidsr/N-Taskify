@@ -12,8 +12,8 @@ public class HealthController : ControllerBase
         return Ok(new
         {
             service = "N-Taskify API",
-            status = "Healthy",
-            timestamp = DateTime.UtcNow
+            status = "healthy",
+            timestamp = DateTimeOffset.UtcNow
         });
     }
-}   
+}

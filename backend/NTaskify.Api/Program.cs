@@ -1,7 +1,6 @@
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
-
 builder.Services.AddOpenApi();
 
 var app = builder.Build();
@@ -13,13 +12,10 @@ if (app.Environment.IsDevelopment())
 
 app.MapControllers();
 
-app.MapGet("/", () =>
+app.MapGet("/", () => Results.Ok(new
 {
-    return Results.Ok(new
-    {
-        name = "N-Taskify API",
-        status = "running"
-    });
-});
+    name = "N-Taskify API",
+    status = "running"
+}));
 
 app.Run();
