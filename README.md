@@ -1,259 +1,207 @@
+<div align="center">
+
 # N-Taskify
 
-**N-Taskify**, N'Sosyal ekosistemiyle bütünleşebilecek şekilde tasarlanan; dijital ve fiziksel kullanıcı etkileşimlerini görevler üzerinden ölçülebilir ve ödüllendirilebilir değere dönüştürmeyi amaçlayan oyunlaştırma tabanlı bir içerik ekonomisi ve dijital sadakat projesidir.
+### Dijital ve fiziksel etkileşimleri doğrulanabilir değere dönüştüren oyunlaştırılmış içerik ekonomisi
 
-Proje, **TEKNOFEST 2026 N'Sosyal İnovasyon Yarışması** kapsamında geliştirilmekte olup birincil olarak **İçerik Ekonomisi** alanına odaklanmaktadır.
+<p>
+  <img src="https://img.shields.io/badge/TEKNOFEST-2026-111827?style=for-the-badge" alt="TEKNOFEST 2026">
+  <img src="https://img.shields.io/badge/N'Sosyal-İnovasyon%20Yarışması-111827?style=for-the-badge" alt="N'Sosyal İnovasyon Yarışması">
+  <img src="https://img.shields.io/badge/Tematik%20Alan-İçerik%20Ekonomisi-111827?style=for-the-badge" alt="İçerik Ekonomisi">
+</p>
 
-> Proje şu anda geliştirme aşamasındadır. Bu repository, N-Taskify'ın teknik geliştirme sürecini ve sürüm geçmişini takip etmek amacıyla kullanılmaktadır.
+<p>
+  <img src="https://img.shields.io/badge/C%23-ASP.NET%20Core-512BD4?style=flat-square&logo=dotnet&logoColor=white" alt="C# / ASP.NET Core">
+  <img src="https://img.shields.io/badge/Frontend-React-20232A?style=flat-square&logo=react&logoColor=61DAFB" alt="React">
+  <img src="https://img.shields.io/badge/AI-Python-3776AB?style=flat-square&logo=python&logoColor=white" alt="Python">
+  <img src="https://img.shields.io/badge/Database-PostgreSQL%20%2F%20SQL%20Server-336791?style=flat-square&logo=postgresql&logoColor=white" alt="PostgreSQL / SQL Server">
+  <img src="https://img.shields.io/badge/Version%20Control-Git-F05032?style=flat-square&logo=git&logoColor=white" alt="Git">
+  <img src="https://img.shields.io/badge/Repository-GitHub-181717?style=flat-square&logo=github&logoColor=white" alt="GitHub">
+</p>
+
+**N-Taskify**, N'Sosyal ekosistemiyle bütünleşebilecek şekilde tasarlanan; kullanıcıların dijital ve fiziksel etkileşimlerini görevler üzerinden ölçülebilir ve ödüllendirilebilir değere dönüştürmeyi amaçlayan bir içerik ekonomisi ve dijital sadakat projesidir.
+
+</div>
 
 ---
 
-## Projenin Çıkış Noktası
+## İçindekiler
 
-Sosyal medya kullanıcıları her gün içerik izleyerek, paylaşım yaparak, gönderilerle etkileşime girerek ve platformların büyümesine katkı sağlayarak önemli bir değer üretiyor. Buna rağmen bu değerin son kullanıcıya doğrudan döndüğü mekanizmalar oldukça sınırlı.
-
-Aynı ekosistemde;
-
-- içerik üreticileri sınırlı gelir modellerine bağlı kalabiliyor,
-- markalar gerçek kullanıcı etkileşimini bot veya sahte etkileşimlerden ayırmakta zorlanabiliyor,
-- fiziksel etkinliklerde oluşan kullanıcı davranışları ile dijital kampanya etkileşimleri çoğunlukla ayrı sistemlerde takip ediliyor.
-
-N-Taskify bu parçaları tek bir **görev, doğrulama ve ödül sistemi** altında bir araya getirmeyi hedefliyor.
+- [Proje Hakkında](#proje-hakkında)
+- [Problem](#problem)
+- [Çözüm](#çözüm)
+- [Nasıl Çalışır?](#nasıl-çalışır)
+- [Temel Bileşenler](#temel-bileşenler)
+- [Öne Çıkan Özellikler](#öne-çıkan-özellikler)
+- [Teknik Mimari](#teknik-mimari)
+- [Teknoloji Yığını](#teknoloji-yığını)
+- [Yapay Zekâ ve Doğrulama](#yapay-zekâ-ve-doğrulama)
+- [Kullanıcı Deneyimi](#kullanıcı-deneyimi)
+- [Prototip Kapsamı](#prototip-kapsamı)
+- [Geliştirme Durumu](#geliştirme-durumu)
+- [Detaylı Dokümantasyon](#detaylı-dokümantasyon)
 
 ---
 
-## N-Taskify Nasıl Çalışır?
+## Proje Hakkında
 
-Sistemin temel akışı oldukça basittir:
+N-Taskify'ın çıkış noktası, sosyal medya ekosisteminde üretilen değerin yalnızca platform ve reklam veren tarafında kalmaması gerektiği düşüncesidir.
 
-```text
-Kullanıcı
-   ↓
-Görevleri görüntüler
-   ↓
-Bir görev seçer
-   ↓
-Görevi tamamlar
-   ↓
-QR / Konum / Görsel / Sistem kontrolü
-   ↓
-Görev doğrulanır
-   ↓
-N-Puan kazanılır
-   ↓
-Ödül / avantaj / yeni görev
-```
+Kullanıcılar her gün içerik izliyor, paylaşım yapıyor, etkileşim kuruyor ve platformların büyümesine katkı sağlıyor. İçerik üreticileri yeni gelir kanalları arıyor, markalar ise gerçek kullanıcı davranışını bot veya sahte etkileşimlerden ayırmakta zorlanıyor.
 
-Görevler yalnızca dijital işlemlerle sınırlı değildir.
+N-Taskify; bu üç tarafı ortak bir **görev, doğrulama ve ödül döngüsü** içerisinde buluşturmayı hedefler.
+
+> Amaç yalnızca “görev yap, puan kazan” mantığında bir uygulama geliştirmek değil; kullanıcı, içerik üreticisi ve marka arasında doğrulanabilir bir değer akışı oluşturmaktır.
+
+---
+
+## Problem
+
+### 👤 Kullanıcı tarafı
+Kullanıcılar sosyal platformlarda ciddi zaman geçiriyor ve sürekli etkileşim üretiyor. Buna rağmen oluşturdukları ekonomik değerden doğrudan yararlanabildikleri mekanizmalar sınırlı.
+
+### 🎥 İçerik üreticisi tarafı
+İçerik üreticileri çoğunlukla reklam gelirleri, sponsorluklar ve abonelik sistemleri gibi belirli gelir modellerine bağlı kalıyor.
+
+### 🏢 Marka tarafı
+Markalar yüksek etkileşime ulaşabilse bile, bu etkileşimin gerçekten kullanıcı tarafından üretildiğini doğrulamak ve fiziksel etkinlik katılımıyla birlikte ölçmek her zaman kolay değil.
+
+---
+
+## Çözüm
+
+N-Taskify, dijital ve fiziksel kullanıcı aksiyonlarını **görev** kavramı üzerinden bir araya getirir.
 
 ### Dijital görev örnekleri
-
 - Video izleme
 - İçerikle etkileşim kurma
 - İçerik paylaşma
 - Mini oyun tamamlama
 
 ### Fiziksel görev örnekleri
-
 - QR kod okutma
 - Belirlenen bir konumda bulunma
 - Etkinlik veya stant ziyareti
 - Görsel kanıt gönderme
 
-Dijital ve fiziksel görevlerin aynı görev motoru içerisinde çalışması, projenin temel yaklaşımını oluşturmaktadır.
+Görev başarıyla tamamlanıp doğrulandığında kullanıcı **N-Puan** kazanır.
+
+---
+
+## Nasıl Çalışır?
+
+```mermaid
+flowchart LR
+    A[Kullanıcı] --> B[Görevleri Görüntüler]
+    B --> C[Görev Seçer]
+    C --> D[Görevi Tamamlar]
+    D --> E{Doğrulama}
+    E -->|Başarılı| F[N-Puan Kazanır]
+    E -->|Başarısız| G[Görev Reddedilir / Tekrar Kontrol]
+    F --> H[Ödül / Avantaj / Yeni Görev]
+```
 
 ---
 
 ## Temel Bileşenler
 
-### N-Puan
+### 🪙 N-Puan
+N-Puan, kullanıcıların doğrulanmış görevler sonucunda kazanabildiği platform içi sadakat ve ödül puanıdır.
 
-N-Puan, kullanıcıların doğrulanmış görevleri tamamlayarak kazanabildiği platform içi sadakat ve ödül puanıdır.
+- Gerçek para değildir.
+- Kripto varlık değildir.
+- Token altyapısı olarak tasarlanmamıştır.
 
 Planlanan kullanım alanları:
-
 - Ödül kazanımı
 - Platform içi avantajlar
 - Premium içerik veya özelliklere erişim
 - İçerik üreticilerine mikro destek
 
-N-Puan gerçek para, kripto para veya token olarak tasarlanmamıştır.
-
-### N-Referans
-
+### 🔗 N-Referans
 N-Referans, kullanıcıların ekosisteme sağladığı ağ katkısını ödüllendirmeyi amaçlayan referans mekanizmasıdır.
 
-Klasik tek seferlik davet sistemlerinden farklı olarak daha sürdürülebilir bir kullanıcı kazanım modeli oluşturulması hedeflenmektedir.
+### 🎯 Hibrit Görev Motoru
+Dijital ve fiziksel görevleri aynı sistem içerisinde yönetmeyi hedefleyen çekirdek görev altyapısıdır.
 
-### Hibrit Görev Motoru
-
-N-Taskify'ın merkezinde dijital ve fiziksel görevleri aynı sistem içerisinde yönetebilen görev altyapısı bulunmaktadır.
-
-Görevler;
-
-- kullanıcı,
-- kampanya,
-- ödül,
-- doğrulama yöntemi
-
-gibi farklı bileşenlerle ilişkilendirilebilir.
-
-### Çok Katmanlı Doğrulama
-
-Görevlerin yalnızca kullanıcı beyanına dayanması yerine, görevin türüne göre birden fazla doğrulama yöntemi kullanılabilmesi planlanmaktadır.
-
-Bunlar arasında:
-
-- QR doğrulama
-- Geofencing
-- Görsel doğrulama
-- Davranış analizi
-- Hız ve tekrar kontrolleri
-
-yer almaktadır.
+### 🛡️ Çok Katmanlı Doğrulama
+Görevin türüne göre QR, geofencing, görsel doğrulama ve davranış analizi gibi farklı yöntemler birlikte kullanılabilir.
 
 ---
 
-## Hedeflenen Ana Modüller
+## Öne Çıkan Özellikler
 
-N-Taskify prototipi aşağıdaki temel modüller etrafında geliştirilecektir:
-
-- Kullanıcı yönetimi
-- Kimlik doğrulama ve yetkilendirme
-- Görev yönetimi
-- Kampanya yönetimi
-- Görev tamamlama ve doğrulama
-- N-Puan hareketleri
-- N-Referans sistemi
-- QR doğrulama
-- Konum doğrulama
-- Görsel doğrulama
-- Temel davranış analizi
-- Ödül / mağaza akışı
-- Yönetim paneli
-
-İlk hedef, bütün özellikleri aynı anda tamamlamak yerine temel kullanıcı senaryosunu uçtan uca çalıştırabilen kararlı bir prototip oluşturmaktır.
+| Özellik | Açıklama |
+|---|---|
+| 🎯 **Hibrit görev motoru** | Dijital ve fiziksel görevleri aynı kampanya altyapısında birleştirir. |
+| 🪙 **N-Puan sistemi** | Doğrulanmış görevleri platform içi değere dönüştürür. |
+| 🔗 **N-Referans** | Kullanıcı kazanımını ve ağ katkısını oyunlaştırır. |
+| 📍 **Geofencing** | Konum tabanlı görevlerin doğrulanmasını destekler. |
+| 📱 **QR doğrulama** | Fiziksel görevlerde ek doğrulama katmanı sağlar. |
+| 👁️ **Görsel doğrulama** | Görev kanıtlarının bilgisayarlı görü ile incelenmesini hedefler. |
+| 🧠 **Davranış analizi** | Şüpheli hız, tekrar ve kullanım örüntülerini değerlendirmeyi amaçlar. |
+| 🛍️ **Ödül ekosistemi** | N-Puanların çeşitli avantajlarda kullanılmasını hedefler. |
 
 ---
 
-## Teknik Yaklaşım
+## Teknik Mimari
 
 N-Taskify, çok katmanlı ve modüler bir web/mobil sistem olarak planlanmaktadır.
 
-Çekirdek iş mantığının REST API üzerinden sunulması; kullanıcı arayüzü, backend ve doğrulama bileşenlerinin mümkün olduğunca birbirinden ayrılması hedeflenmektedir.
-
-### Planlanan teknoloji yığını
-
-| Alan | Teknoloji / Yaklaşım |
-|---|---|
-| Backend | C# / ASP.NET Core |
-| API | REST |
-| Frontend | React |
-| Veritabanı | Microsoft SQL Server veya PostgreSQL |
-| Yapay Zekâ / Veri | Python |
-| Veri İşleme | NumPy, Pandas, Scikit-learn |
-| Görsel Doğrulama | YOLO tabanlı hafif modeller |
-| Konum Doğrulama | Geofencing |
-| Sürüm Kontrolü | Git / GitHub |
-
-> Repository geliştikçe kullanılan teknoloji ve kütüphaneler burada güncellenecektir.
-
----
-
-## Backend
-
-Backend tarafında **C# ve ASP.NET Core** kullanılacaktır.
-
-Temel sorumluluklar:
-
-- Kullanıcı işlemleri
-- Yetkilendirme
-- Görev iş kuralları
-- Kampanya yönetimi
-- N-Puan işlemleri
-- N-Referans mantığı
-- Görev doğrulama süreçleri
-- REST API servisleri
-
-İlk backend hedefi, kullanıcı → görev → doğrulama → N-Puan akışının çalışır hâle getirilmesidir.
-
----
-
-## Frontend
-
-Kullanıcı arayüzünde React tabanlı bir yapı planlanmaktadır.
-
-Öncelikli ekranlar:
-
-- Ana ekran
-- Görev listesi
-- Görev detayı
-- N-Puan bakiyesi
-- Ödüller
-- N-Referans
-- Kullanıcı profili
-- Görev doğrulama ekranları
-
-Arayüz tasarımında kısa kullanıcı akışları, mobil kullanım kolaylığı ve anlık geri bildirim ön planda tutulacaktır.
-
----
-
-## Veri Katmanı
-
-Projede ilişkisel veritabanı kullanılacaktır.
-
-Değerlendirilen seçenekler:
-
-- Microsoft SQL Server
-- PostgreSQL
-
-Temel veri alanları:
-
-```text
-User
-Task
-Campaign
-PointTransaction
-Referral
-TaskCompletion
-Verification
-Reward
+```mermaid
+flowchart TB
+    U[Kullanıcı] --> FE[React Tabanlı Arayüz]
+    FE --> API[ASP.NET Core REST API]
+    API --> DB[(İlişkisel Veritabanı)]
+    API --> TASK[Görev ve Kampanya Mantığı]
+    API --> POINT[N-Puan / N-Referans]
+    API --> VERIFY[Doğrulama Katmanı]
+    VERIFY --> QR[QR Doğrulama]
+    VERIFY --> GEO[Geofencing]
+    VERIFY --> CV[Görsel Doğrulama]
+    VERIFY --> BA[Davranış Analizi]
+    CV --> PY[Python / YOLO]
+    BA --> DATA[Python / Veri Analizi]
 ```
 
-N-Puan hareketlerinin yalnızca güncel bakiye olarak değil, izlenebilir işlem geçmişi şeklinde tutulması hedeflenmektedir.
+> Diyagram kavramsal mimariyi göstermektedir. Uygulama mimarisi geliştirme sürecinde ihtiyaçlara göre netleştirilecektir.
 
 ---
 
-## Yapay Zekâ ve Veri Analizi
+## Teknoloji Yığını
 
-N-Taskify'da yapay zekâ, projenin ana fikrinden bağımsız bir özellik olarak değil; özellikle **doğrulama, güvenlik ve analiz** problemlerini destekleyen bir katman olarak ele alınmaktadır.
+| Katman | Teknoloji |
+|---|---|
+| **Backend** | C# / ASP.NET Core |
+| **API** | REST |
+| **Frontend** | React |
+| **Veritabanı** | Microsoft SQL Server veya PostgreSQL |
+| **Yapay Zekâ / Veri** | Python |
+| **Veri İşleme** | NumPy, Pandas, Scikit-learn |
+| **Görsel Doğrulama** | YOLO tabanlı hafif modeller |
+| **Konum Doğrulama** | Geofencing |
+| **Sürüm Kontrolü** | Git / GitHub |
 
-### Görsel doğrulama
+---
 
+## Yapay Zekâ ve Doğrulama
+
+N-Taskify'da yapay zekâ, özellikle **doğrulama, güvenlik ve analiz** ihtiyaçlarını destekleyen bir katman olarak ele alınmaktadır.
+
+### 👁️ Görsel doğrulama
 Fiziksel görevlerde gönderilen görsel kanıtların değerlendirilmesi için YOLO tabanlı hafif bilgisayarlı görü modellerinden yararlanılması planlanmaktadır.
 
-### Davranış analizi
+### 📍 Konum doğrulama
+Konuma bağlı görevlerde cihaz koordinatı, tanımlı geofence yarıçapı, zaman damgası ve görev bağlamı birlikte değerlendirilebilir.
 
-Aşağıdaki gibi şüpheli davranışların tespit edilmesi hedeflenmektedir:
-
+### 🧠 Davranış analizi
 - Gerçekçi olmayan görev tamamlama süreleri
-- Çok kısa sürede aşırı görev tamamlama
-- Sürekli tekrar eden hareketler
+- Kısa sürede aşırı görev tamamlama
+- Tekrarlayan şüpheli hareketler
 - Konum ve görev arasında tutarsızlık
 - Bot veya otomasyon ihtimali
 
-### Veri işleme
-
-Veri analizi ve deneysel çalışmalar için Python ekosistemindeki NumPy, Pandas ve Scikit-learn gibi araçların kullanılması planlanmaktadır.
-
----
-
-## Model Doğrulama Yaklaşımı
-
-Yapay zekâ bileşenlerinde henüz ölçülmemiş sonuçlar başarı olarak kabul edilmeyecektir.
-
-Gerekli deneyler gerçekleştirildikten sonra aşağıdaki metrikler kullanılabilir:
-
+### 📊 Model değerlendirme
 - Precision
 - Recall
 - F1-score
@@ -261,13 +209,11 @@ Gerekli deneyler gerçekleştirildikten sonra aşağıdaki metrikler kullanılab
 - False Positive Rate
 - ROC-AUC
 
-Görsel veri tarafında gerektiğinde eğitim, doğrulama ve test veri kümeleri ayrılacak; veri artırma, early stopping, regularization ve transfer learning gibi yöntemler değerlendirilecektir.
+Henüz ölçülmemiş sonuçlar başarı olarak sunulmayacaktır.
 
 ---
 
 ## Kullanıcı Deneyimi
-
-N-Taskify için kullanıcı deneyiminin temel amacı, görev tamamlama sürecini mümkün olduğunca anlaşılır ve hızlı hâle getirmektir.
 
 Öncelikli tasarım ilkeleri:
 
@@ -275,7 +221,7 @@ N-Taskify için kullanıcı deneyiminin temel amacı, görev tamamlama sürecini
 - Mobil öncelikli kullanım
 - Anlık görev tamamlama geri bildirimi
 - N-Puan kazanımının açık biçimde gösterilmesi
-- Yeterli renk kontrastı
+- Yüksek renk kontrastı
 - Okunabilir tipografi
 - Uygun dokunma hedefleri
 - Fiziksel görevlerde gereksiz adımlardan kaçınma
@@ -284,25 +230,9 @@ Erişilebilirlik tarafında WCAG ilkeleri referans alınmaktadır.
 
 ---
 
-## Güvenlik ve Veri Minimizasyonu
-
-Konum ve görsel veri kullanan görevlerde mümkün olduğunca az veri işlenmesi temel prensiplerden biridir.
-
-Özellikle konum verisinin:
-
-- yalnızca görev doğrulama amacıyla kullanılması,
-- gereksiz yere saklanmaması,
-- ihtiyaç duyulan minimum süre boyunca tutulması
-
-hedeflenmektedir.
-
-Amaç kullanıcıdan mümkün olan en fazla veriyi toplamak değil, görevin güvenilir biçimde doğrulanması için gerekli veriyi işlemektir.
-
----
-
 ## Prototip Kapsamı
 
-İlk çalışan prototipte aşağıdaki akışın uçtan uca gösterilebilmesi hedeflenmektedir:
+İlk çalışan prototipte aşağıdaki temel akışın uçtan uca gösterilmesi hedeflenmektedir:
 
 ```text
 Kayıt / Giriş
@@ -322,47 +252,32 @@ Bakiyeyi Görüntüleme
 Ödül veya Yeni Görev
 ```
 
-Bunun yanında N-Referans, QR, geofencing, görsel doğrulama ve temel davranış analizi gibi bileşenler geliştirme planının devamında yer almaktadır.
+### Hedeflenen modüller
+- Kullanıcı yönetimi
+- Kimlik doğrulama ve yetkilendirme
+- Görev yönetimi
+- Kampanya yönetimi
+- N-Puan hareketleri
+- N-Referans sistemi
+- QR doğrulama
+- Geofencing
+- Görsel doğrulama
+- Temel davranış analizi
+- Ödül / mağaza akışı
+- Yönetim paneli
 
----
-
-## İlk Aşamada Kapsam Dışı
-
-Prototip aşamasında aşağıdaki alanlar bilinçli olarak kapsam dışında tutulmuştur:
-
+### İlk prototipte kapsam dışı
 - Gerçek para transferleri
 - Ödeme kuruluşu entegrasyonları
-- Kripto para altyapısı
-- Token sistemi
+- Kripto para / token altyapısı
 - Geniş ölçekli reklam ihale sistemleri
-
-Bu karar, geliştirme sürecinde temel ürün fikrinin doğrulanmasına odaklanabilmek için alınmıştır.
-
----
-
-## Başarı Nasıl Ölçülecek?
-
-Projenin başarısı yalnızca sistemin çalışması üzerinden değerlendirilmeyecektir.
-
-Takip edilmesi planlanan göstergeler arasında:
-
-- Görev tamamlama oranı
-- Görev tamamlama süresi
-- Doğrulama hataları
-- Yanlış pozitif / yanlış negatif oranları
-- Kullanıcı akışındaki adım sayısı
-- Kullanıcı geri bildirimleri
-
-bulunmaktadır.
 
 ---
 
 ## Geliştirme Durumu
 
-N-Taskify aktif geliştirme aşamasındadır.
-
-Projenin öncelik sırası:
-
+- [x] Proje kapsamının dokümante edilmesi
+- [x] Repository ve temel dokümantasyonun hazırlanması
 - [ ] Proje yapısının oluşturulması
 - [ ] Temel domain modellerinin hazırlanması
 - [ ] Veritabanı altyapısının kurulması
@@ -379,65 +294,29 @@ Projenin öncelik sırası:
 - [ ] Kullanılabilirlik ve UX iyileştirmeleri
 - [ ] Final demo akışının hazırlanması
 
-Bu liste geliştirme ilerledikçe güncellenecektir.
-
 ---
 
-## Geliştirme Yaklaşımı
+## Detaylı Dokümantasyon
 
-Repository üzerinde yapılan değişikliklerin küçük, anlaşılır ve takip edilebilir commitler hâlinde tutulması amaçlanmaktadır.
+Projenin kapsamı, mimari yaklaşımı, doğrulama yöntemleri, yapay zekâ bileşenleri, iş modeli ve geliştirme planı hakkında ayrıntılı bilgi için:
 
-Örnek:
-
-```text
-docs: add N-Taskify project specification
-docs: add project README
-chore: initialize backend project
-chore: initialize frontend project
-feat: add core domain models
-feat: implement task management
-feat: implement N-Puan transactions
-feat: add referral relationships
-feat: add QR task verification
-test: add task flow tests
-```
-
-Kodun yalnızca son hâlinin değil, geliştirme sürecinin de repository geçmişi üzerinden izlenebilmesi hedeflenmektedir.
-
----
-
-## Detaylı Proje Dokümanı
-
-Projenin kapsamı, teknik yaklaşımı, doğrulama yöntemleri, yapay zekâ bileşenleri, iş modeli ve geliştirme planı hakkında daha ayrıntılı bilgi için:
-
-**[N-Taskify Proje Dokümanı](./N-Taskify_PROJECT.md)**
+### 📘 [N-Taskify Proje Dokümanı](./N-Taskify_PROJECT.md)
 
 ---
 
 ## Yarışma
 
-N-Taskify, **TEKNOFEST 2026 N'Sosyal İnovasyon Yarışması** kapsamında geliştirilmiştir.
-
+**TEKNOFEST 2026 — N'Sosyal İnovasyon Yarışması**  
 **Tematik Alan:** İçerik Ekonomisi
 
-Proje; İçerik Ekonomisi temasının yanında Sosyal Yapay Zekâ ve Kullanıcı Katılımı / UI-UX alanlarıyla ilişkili bileşenler de içermektedir.
-
 ---
 
-## Kaynaklar
+<div align="center">
 
-Proje yaklaşımının oluşturulmasında yararlanılan başlıca kaynaklar:
+### N-Taskify
 
-- TEKNOFEST — N'Sosyal İnovasyon Yarışması Genel Şartnamesi, 2026
-- TEKNOFEST — N'Sosyal İnovasyon Yarışması Proje Teknik Rapor Şablonu ve Değerlendirme Esasları, 2026
-- DataReportal — *Digital 2025: The State of Social Media in 2025*
-- IAB / PwC — *Internet Advertising Revenue Report: Full Year 2024*
-- Redmon, J. ve diğerleri — *You Only Look Once: Unified, Real-Time Object Detection*
-- Looyestyn, J. ve diğerleri — *Does gamification increase engagement with online programs?*
-- W3C — *Web Content Accessibility Guidelines (WCAG) 2.2*
+**Görev. Doğrulama. Değer.**
 
----
+<sub>Bu repository, projenin aktif geliştirme sürecini ve teknik ilerleyişini takip etmek amacıyla kullanılmaktadır.</sub>
 
-## Not
-
-Bu repository yarışma sürecindeki aktif geliştirme çalışmalarını içermektedir. Dokümantasyonda yer alan planlanan özellikler, geliştirilmiş ve tamamlanmış özelliklerle aynı anlama gelmez. Repository ve bu README, proje ilerledikçe güncel tutulacaktır.
+</div>

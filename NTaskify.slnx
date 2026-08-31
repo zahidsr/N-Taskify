@@ -1,0 +1,8 @@
+<Solution>
+  <Folder Name="/backend/">
+    <Project Path="backend/NTaskify.Api/NTaskify.Api.csproj" />
+    <Project Path="backend/NTaskify.Application/NTaskify.Application.csproj" />
+    <Project Path="backend/NTaskify.Domain/NTaskify.Domain.csproj" />
+    <Project Path="backend/NTaskify.Infrastructure/NTaskify.Infrastructure.csproj" />
+  </Folder>
+</Solution>
