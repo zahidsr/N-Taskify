@@ -278,8 +278,8 @@ Bakiyeyi Görüntüleme
 
 - [x] Proje kapsamının dokümante edilmesi
 - [x] Repository ve temel dokümantasyonun hazırlanması
-- [ ] Proje yapısının oluşturulması
-- [ ] Temel domain modellerinin hazırlanması
+- [x] Proje yapısının oluşturulması
+- [x] Temel domain modellerinin hazırlanması
 - [ ] Veritabanı altyapısının kurulması
 - [ ] Görev yönetiminin geliştirilmesi
 - [ ] N-Puan sisteminin geliştirilmesi

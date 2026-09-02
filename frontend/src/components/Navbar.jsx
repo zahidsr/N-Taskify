@@ -32,9 +32,19 @@ export default function Navbar({ activeTab, setActiveTab, userPoints }) {
                 <div className="text-sm font-extrabold text-white leading-tight">{userPoints.toLocaleString()}</div>
               </div>
             </div>
-            <div className="w-9 h-9 rounded-xl bg-slate-800 border border-slate-700 flex items-center justify-center text-slate-300">
-              <User className="w-4 h-4" />
+            <div className="hidden sm:flex items-center gap-2 text-xs text-slate-300">
+              <div className="w-9 h-9 rounded-xl bg-slate-800 border border-slate-700 flex items-center justify-center text-slate-300">
+                <User className="w-4 h-4" />
+              </div>
+              <span className="font-medium">{currentUser?.userName}</span>
             </div>
+            <button
+              onClick={onLogout}
+              title="Çıkış Yap"
+              className="w-9 h-9 rounded-xl bg-slate-800 border border-slate-700 flex items-center justify-center text-slate-300 hover:text-rose-400 hover:border-rose-500/40 transition"
+            >
+              <LogOut className="w-4 h-4" />
+            </button>
           </div>
         </div>
       </div>
