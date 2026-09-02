@@ -1,5 +1,5 @@
 import React from 'react';
-import { QrCode, PlayCircle, Share2, MapPin, ShieldCheck } from 'lucide-react';
+import { QrCode, PlayCircle, Share2, MapPin, ShieldCheck, CheckCircle2 } from 'lucide-react';
 
 export default function TaskCard({ task, onStartTask }) {
   const getIcon = (type) => {
@@ -37,9 +37,15 @@ export default function TaskCard({ task, onStartTask }) {
           <ShieldCheck className="w-3.5 h-3.5 text-indigo-400" />
           <span>{task.verificationMethod}</span>
         </div>
-        <button onClick={() => onStartTask(task)} className="px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-indigo-600 hover:bg-indigo-500 text-white transition shadow-md shadow-indigo-600/20">
-          Görevi Başlat
-        </button>
+        {task.status === 'completed' ? (
+          <span className="px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-emerald-950/50 text-emerald-300 border border-emerald-800/40 flex items-center gap-1.5">
+            <CheckCircle2 className="w-3.5 h-3.5" /> Tamamlandı
+          </span>
+        ) : (
+          <button onClick={() => onStartTask(task)} className="px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-indigo-600 hover:bg-indigo-500 text-white transition shadow-md shadow-indigo-600/20">
+            Görevi Başlat
+          </button>
+        )}
       </div>
     </div>
   );

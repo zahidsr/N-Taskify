@@ -15,15 +15,23 @@ builder.Services.AddOpenApi();
 
 builder.Services.AddSingleton<ITaskCatalogService, InMemoryTaskCatalogService>();
 builder.Services.AddSingleton<IUserRepository, InMemoryUserRepository>();
+builder.Services.AddSingleton<ITaskCompletionRepository, InMemoryTaskCompletionRepository>();
+builder.Services.AddSingleton<IPointTransactionRepository, InMemoryPointTransactionRepository>();
 builder.Services.AddSingleton<IPasswordHasher, Pbkdf2PasswordHasher>();
 builder.Services.AddSingleton<ITokenService, JwtTokenService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IWalletService, WalletService>();
+builder.Services.AddScoped<ITaskService, TaskService>();
 
 builder.Services.AddCors(options =>
 {
     options.AddPolicy(FrontendCorsPolicy, policy =>
     {
-        policy.WithOrigins("http://localhost:3000")
+        policy.SetIsOriginAllowed(origin =>
+            {
+                if (!Uri.TryCreate(origin, UriKind.Absolute, out var uri)) return false;
+                return uri.Host is "localhost" or "127.0.0.1";
+            })
             .AllowAnyHeader()
             .AllowAnyMethod();
     });

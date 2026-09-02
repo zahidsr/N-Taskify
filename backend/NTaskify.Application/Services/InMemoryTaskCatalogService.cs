@@ -52,10 +52,13 @@ public class InMemoryTaskCatalogService : ITaskCatalogService
         }
     ];
 
-    public IReadOnlyList<TaskDto> GetAll()
-        => Tasks.Select(Map).ToList();
+    public IReadOnlyList<TaskDto> GetAll(IReadOnlySet<Guid>? completedTaskIds = null)
+        => Tasks.Select(t => Map(t, completedTaskIds)).ToList();
 
-    private static TaskDto Map(TaskDefinition task) => new()
+    public TaskDto? FindById(Guid taskId)
+        => Tasks.Where(t => t.Id == taskId).Select(t => Map(t, null)).FirstOrDefault();
+
+    private static TaskDto Map(TaskDefinition task, IReadOnlySet<Guid>? completedTaskIds) => new()
     {
         Id = task.Id.ToString(),
         Title = task.Title,
@@ -64,7 +67,7 @@ public class InMemoryTaskCatalogService : ITaskCatalogService
         Type = MapType(task.Type),
         RewardPoints = task.RewardPoints,
         VerificationMethod = MapVerification(task.VerificationMethods),
-        Status = task.IsActive ? "available" : "closed"
+        Status = !task.IsActive ? "closed" : completedTaskIds?.Contains(task.Id) == true ? "completed" : "available"
     };
 
     private static bool IsPhysical(TaskType type) => type switch

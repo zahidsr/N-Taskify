@@ -12,10 +12,12 @@ namespace NTaskify.Api.Controllers;
 public class AuthController : ControllerBase
 {
     private readonly IAuthService _authService;
+    private readonly IWalletService _walletService;
 
-    public AuthController(IAuthService authService)
+    public AuthController(IAuthService authService, IWalletService walletService)
     {
         _authService = authService;
+        _walletService = walletService;
     }
 
     [HttpPost("register")]
@@ -48,13 +50,14 @@ public class AuthController : ControllerBase
 
     [Authorize]
     [HttpGet("me")]
-    public IActionResult Me()
+    public async Task<IActionResult> Me()
     {
         var id = User.FindFirstValue(ClaimTypes.NameIdentifier) ?? User.FindFirstValue("sub");
         var email = User.FindFirstValue(ClaimTypes.Email);
         var userName = User.FindFirstValue("userName");
         var role = User.FindFirstValue(ClaimTypes.Role);
+        var balance = await _walletService.GetBalanceAsync(Guid.Parse(id!));
 
-        return Ok(new { id, email, userName, role });
+        return Ok(new { id, email, userName, role, balance });
     }
 }

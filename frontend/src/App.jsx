@@ -9,7 +9,7 @@ import { apiService, authStorage } from './services/api';
 
 export default function App() {
   const [activeTab, setActiveTab] = useState('dashboard');
-  const [userPoints, setUserPoints] = useState(2450);
+  const [userPoints, setUserPoints] = useState(0);
   const [tasks, setTasks] = useState([]);
   const [selectedTask, setSelectedTask] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
@@ -19,18 +19,22 @@ export default function App() {
   useEffect(() => {
     async function restoreSession() {
       const me = await apiService.getMe();
-      if (me) setCurrentUser(me);
+      if (me) {
+        setCurrentUser(me);
+        setUserPoints(me.balance ?? 0);
+      }
       setAuthChecked(true);
     }
     restoreSession();
   }, []);
 
+  const loadTasks = async () => {
+    const data = await apiService.getTasks();
+    setTasks(data);
+  };
+
   useEffect(() => {
     if (!currentUser) return;
-    async function loadTasks() {
-      const data = await apiService.getTasks();
-      setTasks(data);
-    }
     loadTasks();
   }, [currentUser]);
 
@@ -39,19 +43,27 @@ export default function App() {
     setModalOpen(true);
   };
 
-  const handleCompleteTask = (points) => {
-    setUserPoints(prev => prev + points);
+  const handleCompleteTask = (newBalance) => {
+    setUserPoints(newBalance);
+    loadTasks();
+  };
+
+  const handleAuthenticated = (user) => {
+    setCurrentUser(user);
+    setUserPoints(user.balance ?? 0);
   };
 
   const handleLogout = () => {
     authStorage.clearToken();
     setCurrentUser(null);
+    setUserPoints(0);
+    setTasks([]);
   };
 
   if (!authChecked) return null;
 
   if (!currentUser) {
-    return <AuthPage onAuthenticated={setCurrentUser} />;
+    return <AuthPage onAuthenticated={handleAuthenticated} />;
   }
 
   return (

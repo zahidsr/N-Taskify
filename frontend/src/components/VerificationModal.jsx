@@ -1,23 +1,33 @@
 import React, { useState } from 'react';
 import { X, CheckCircle2, Loader2, ShieldCheck } from 'lucide-react';
+import { apiService } from '../services/api';
 
 export default function VerificationModal({ task, isOpen, onClose, onComplete }) {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [error, setError] = useState('');
+  const [result, setResult] = useState(null);
 
   if (!isOpen || !task) return null;
 
-  const handleVerify = () => {
+  const handleVerify = async () => {
     setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
+    setError('');
+    try {
+      const response = await apiService.completeTask(task.id);
+      setResult(response);
       setSuccess(true);
       setTimeout(() => {
-        onComplete(task.rewardPoints);
+        onComplete(response.newBalance);
         setSuccess(false);
+        setResult(null);
         onClose();
       }, 1200);
-    }, 1500);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -37,12 +47,19 @@ export default function VerificationModal({ task, isOpen, onClose, onComplete })
         {success ? (
           <div className="p-4 rounded-xl bg-emerald-950/50 border border-emerald-500/30 text-emerald-300 flex items-center justify-center gap-2">
             <CheckCircle2 className="w-5 h-5" />
-            <span className="font-semibold text-sm">+{task.rewardPoints} N-Puan Kazanıldı!</span>
+            <span className="font-semibold text-sm">+{result?.pointsAwarded ?? task.rewardPoints} N-Puan Kazanıldı!</span>
           </div>
         ) : (
-          <button onClick={handleVerify} disabled={loading} className="w-full py-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 disabled:bg-indigo-800 text-white font-semibold text-sm transition flex items-center justify-center gap-2 shadow-lg shadow-indigo-600/30">
-            {loading ? (<><Loader2 className="w-4 h-4 animate-spin" /><span>Doğrulanıyor...</span></>) : (<span>Doğrula ve N-Puanı Al</span>)}
-          </button>
+          <>
+            {error && (
+              <div className="mb-3 text-xs text-rose-300 bg-rose-950/40 border border-rose-800/40 rounded-xl px-3 py-2 text-center">
+                {error}
+              </div>
+            )}
+            <button onClick={handleVerify} disabled={loading} className="w-full py-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 disabled:bg-indigo-800 text-white font-semibold text-sm transition flex items-center justify-center gap-2 shadow-lg shadow-indigo-600/30">
+              {loading ? (<><Loader2 className="w-4 h-4 animate-spin" /><span>Doğrulanıyor...</span></>) : (<span>Doğrula ve N-Puanı Al</span>)}
+            </button>
+          </>
         )}
       </div>
     </div>
